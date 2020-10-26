@@ -16,14 +16,14 @@
         <v-card flat style="position: fixed;" tile>
           <v-list shaped min-width="220px">
             <v-list-item-group
-              color="primary"
+                color="primary"
             >
               <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-                color="primary"
-                :to="'#' + item.link"
-                :id="item.link"
+                  v-for="(item, i) in items"
+                  :key="i"
+                  color="primary"
+                  :to="'#' + item.link"
+                  :id="item.link"
               >
                 <v-list-item-icon>
                   <v-icon v-text="item.icon"></v-icon>
@@ -54,54 +54,54 @@ export default {
     ],
   }),
   created() {
-    this.$router.currentRoute.hash !== "#main" ? this.$router.push("#main") : 
-    window.addEventListener("scroll", function(e) {
-      //e.preventDefault();
-      const section = e.path[0].anchors;
-      section.forEach((el, index) => {
-        const offsets = el.getBoundingClientRect();
-        //console.log(offsets.top < 50, offsets.height * (index + 1)  > window.scrollY , `#${el.id}` !== this.$router.currentRoute.hash)
-        if(offsets.top < 50 && offsets.height * (index + 1)  > window.scrollY) {
-          const links = document.querySelectorAll(".v-list-item.v-list-item--link");
-          links.forEach(item => {
-            console.log(item)
-            item.classList.remove("v-list-item--active");
-            if(item.innerText == el.name) {
-              item.classList.add("v-list-item--active");
-              //this.$router.push(`#${item.id}`);
+    this.$router.currentRoute.hash !== "#main" ? this.$router.push("#main") :
+        window.addEventListener("scroll", function(e) {
+          //e.preventDefault();
+          const section = e.path[0].anchors;
+          section.forEach((el, index) => {
+            const offsets = el.getBoundingClientRect();
+            //console.log(offsets.top < 50, offsets.height * (index + 1)  > window.scrollY , `#${el.id}` !== this.$router.currentRoute.hash)
+            if(offsets.top < 50 && offsets.height * (index + 1)  > window.scrollY) {
+              const links = document.querySelectorAll(".v-list-item.v-list-item--link");
+              links.forEach(item => {
+                console.log(item)
+                item.classList.remove("v-list-item--active");
+                if(item.innerText == el.name) {
+                  item.classList.add("v-list-item--active");
+                  //this.$router.push(`#${item.id}`);
+                }
+              });
             }
           });
-        } 
-      });
-    }.bind(this));
-  //   changeActiveLink() {
-  //  // # If native scroll listener is locked
-  //  if (!!this.onScrollHash) {
-  //   // # Check if scrolling to lock section is finished or not;
-  //   let section = document.querySelector(this.onScrollHash);
-  //   if (section.offsetTop !== window.scrollY) {
-  //    // # If not, return
-  //    return;
-  //   } else {
-  //    this.onScrollHash = null;
-  //   }
-  //  }
-  //  this.hashedLinks.forEach(link => {
-  //   // # Get section to scroll to it
-  //   const hash = link.getAttribute("data-section");
-  //   if (!!hash) {
-  //    let section = document.querySelector(hash);
-  //    if (section.offsetTop <= window.scrollY && section.offsetTop + section.offsetHeight > window.scrollY) {
-  //     // # Remove all active link, including active class for vuetify
-  //     document
-  //      .querySelectorAll(".rx-nav__link--active")
-  //      .forEach(item => item.classList.remove("rx-nav__link--active", "v-btn--active"));
-  //     link.classList.add("rx-nav__link--active");
-  //    } else {
-  //     link.classList.remove("rx-nav__link--active", "v-btn--active");
-  //    }
-  //   }
-  //  });
+        }.bind(this));
+    //   changeActiveLink() {
+    //  // # If native scroll listener is locked
+    //  if (!!this.onScrollHash) {
+    //   // # Check if scrolling to lock section is finished or not;
+    //   let section = document.querySelector(this.onScrollHash);
+    //   if (section.offsetTop !== window.scrollY) {
+    //    // # If not, return
+    //    return;
+    //   } else {
+    //    this.onScrollHash = null;
+    //   }
+    //  }
+    //  this.hashedLinks.forEach(link => {
+    //   // # Get section to scroll to it
+    //   const hash = link.getAttribute("data-section");
+    //   if (!!hash) {
+    //    let section = document.querySelector(hash);
+    //    if (section.offsetTop <= window.scrollY && section.offsetTop + section.offsetHeight > window.scrollY) {
+    //     // # Remove all active link, including active class for vuetify
+    //     document
+    //      .querySelectorAll(".rx-nav__link--active")
+    //      .forEach(item => item.classList.remove("rx-nav__link--active", "v-btn--active"));
+    //     link.classList.add("rx-nav__link--active");
+    //    } else {
+    //     link.classList.remove("rx-nav__link--active", "v-btn--active");
+    //    }
+    //   }
+    //  });
   }
 }
 </script>

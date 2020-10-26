@@ -1,4 +1,4 @@
-# party_form
+# form
 
 ## Project setup
 ```

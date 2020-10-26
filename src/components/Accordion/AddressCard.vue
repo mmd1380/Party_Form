@@ -144,43 +144,43 @@
 
 <script>
 export default {
-    AddressType: "AddressCard",
-    data: () => ({
+  AddressType: "AddressCard",
+  data: () => ({
 
-        dialog: false,
-        dialogDelete: false,
-        headers: [
-          {
-            text: 'نوع آدرس',
-            align: 'start',
-            sortable: false,
-            value: 'AddressType',
-          },
-          { text: 'کد پستی', value: 'PostCode' , sortable: false},
-          { text: 'شهر', value: 'AccommodationCity' , sortable: false},
-          { text: 'آدرس', value: 'AccommodationAddress' , sortable: false},
-          { text: 'تلفن', value: 'AccommodationTelephone', sortable: false },
-          { text: ' ', value: 'actions', sortable: false },
-        ],
-        Parties: [],
-        editedIndex: -1,
-        editedItem: {
-          AddressType: '',
-          AddressTypes: ["محل کار", "محل زندگی"],
-          PostCode: '',
-          AccommodationCity: null,
-          AccommodationCities: ["تهران", "تبریز", "شیراز", "همدان"],
-          AccommodationAddress: '',
-          AccommodationTelephone: '',
-        },
-        defaultItem: {
-          AddressType: '',
-          PostCode: 0,
-          AccommodationCity: 0,
-          AccommodationAddress: 0,
-          AccommodationTelephone: 0,
-        },
-      }),
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      {
+        text: 'نوع آدرس',
+        align: 'start',
+        sortable: false,
+        value: 'AddressType',
+      },
+      { text: 'کد پستی', value: 'PostCode' , sortable: false},
+      { text: 'شهر', value: 'AccommodationCity' , sortable: false},
+      { text: 'آدرس', value: 'AccommodationAddress' , sortable: false},
+      { text: 'تلفن', value: 'AccommodationTelephone', sortable: false },
+      { text: ' ', value: 'actions', sortable: false },
+    ],
+    Parties: [],
+    editedIndex: -1,
+    editedItem: {
+      AddressType: '',
+      AddressTypes: ["محل کار", "محل زندگی"],
+      PostCode: '',
+      AccommodationCity: null,
+      AccommodationCities: ["تهران", "تبریز", "شیراز", "همدان"],
+      AccommodationAddress: '',
+      AccommodationTelephone: '',
+    },
+    defaultItem: {
+      AddressType: '',
+      PostCode: 0,
+      AccommodationCity: 0,
+      AccommodationAddress: 0,
+      AccommodationTelephone: 0,
+    },
+  }),
 
 
 
