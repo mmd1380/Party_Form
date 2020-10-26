@@ -3,8 +3,7 @@
       :headers="headers"
       :items="Parties"
       class="elevation-1"
-      hide-default-footer
-  >
+      hide-default-footer >
     <template v-slot:top>
       <v-toolbar
           flat
@@ -29,13 +28,13 @@
               <v-container>
                 <v-row>
                   <v-col
-                      cols="12"
+                      cols="6"
                   >
 
                     <v-autocomplete
                         v-model="editedItem.AddressType"
-                        label="AddressType"
-                        :items="editedItem.AddressType"
+                        label="نوع آدرس"
+                        :items="editedItem.AddressTypes"
                         required
                         clearable
                         dense
@@ -43,26 +42,15 @@
                         filled
 
                     ></v-autocomplete>
-
-
                   </v-col>
-                  <v-col
-                      cols="12"
+                    <v-col
+                        cols="6"
+                    >
 
-                  >
-                    <v-text-field
-                        v-model="editedItem.PostCode"
-                        label="PostCode"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                      cols="12"
-
-                  >
 
                     <v-autocomplete
                         v-model="editedItem.AccommodationCity"
-                        label="AccommodationCity "
+                        label="شهر محل سکونت "
                         :items="editedItem.AccommodationCities"
                         required
                         clearable
@@ -75,19 +63,66 @@
                   </v-col>
                   <v-col
                       cols="12"
+
+                  >
+                    <v-text-field
+                        v-model="editedItem.PostCode"
+                        label="کد پستی"
+                        reverse
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col
+                      cols="12"
                   >
                     <v-text-field
                         v-model="editedItem.AccommodationAddress"
-                        label="AccommodationAddress"
+                        label="آدرس"
+                        reverse
                     ></v-text-field>
                   </v-col>
                   <v-col
                       cols="12"
                   >
-                    <v-text-field
-                        v-model="editedItem.AccommodationTelephone"
-                        label="AccommodationTelephone"
-                    ></v-text-field>
+                    <v-menu
+                        ref="endMenu"
+                        :close-on-content-click="false"
+                        :return-value.sync="editedItem.AccommodationStartTime"
+                        offset-y
+                        min-width="200px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="editedItem.AccommodationStartTime"
+                            label="تاریخ شروع سکونت"
+                            prepend-icon="mdi-calendar"
+                            reverse
+                            readonly
+                            v-bind="attrs"
+                            class="pr-1"
+                            v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="$refs.endMenu.isActive = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="$refs.endMenu.save(date)"
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-menu>
+
+
                   </v-col>
                 </v-row>
               </v-container>
@@ -95,29 +130,29 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  color="red darken-1"
                   @click="close"
+                  class="white--text"
               >
-                Cancel
+                کنسل
               </v-btn>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  color="blue darken-2"
+                  class="white--text"
                   @click="save"
               >
-                Save
+                ذخیره
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="headline">از پاک کردن این آدرس مطمئن هستید؟</v-card-title>
+          <v-card class="py-2">
+            <v-card-title class="headline mb-7" style="text-align: right;direction: rtl">از پاک کردن این آدرس مطمئن هستید؟</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">خیر</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">بله</v-btn>
+              <v-btn color="blue"   @click="closeDelete">خیر</v-btn>
+              <v-btn color="blue "   @click="deleteItemConfirm">بله</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -160,6 +195,7 @@ export default {
       { text: 'شهر', value: 'AccommodationCity' , sortable: false},
       { text: 'آدرس', value: 'AccommodationAddress' , sortable: false},
       { text: 'تلفن', value: 'AccommodationTelephone', sortable: false },
+      { text: 'تاریخ شروع سکونت', value: 'AccommodationStartTime', sortable: false },
       { text: ' ', value: 'actions', sortable: false },
     ],
     Parties: [],
@@ -172,13 +208,17 @@ export default {
       AccommodationCities: ["تهران", "تبریز", "شیراز", "همدان"],
       AccommodationAddress: '',
       AccommodationTelephone: '',
+      AccommodationStartTime: ' '
     },
     defaultItem: {
       AddressType: '',
-      PostCode: 0,
-      AccommodationCity: 0,
-      AccommodationAddress: 0,
-      AccommodationTelephone: 0,
+      AddressTypes: ["محل کار", "محل زندگی"],
+      PostCode: '',
+      AccommodationCity: null,
+      AccommodationCities: ["تهران", "تبریز", "شیراز", "همدان"],
+      AccommodationAddress:'',
+      AccommodationTelephone:'',
+      AccommodationStartTime: ' '
     },
   }),
 
@@ -206,6 +246,7 @@ export default {
           AccommodationCity: 'تهران',
           AccommodationAddress: 'خیابان ولیعصر - خیابان انقلاب - کوچه پشن ',
           AccommodationTelephone: '021-88848414',
+          AccommodationStartTime: null
         },
         {
           AddressType: 'محل کار',
@@ -213,6 +254,7 @@ export default {
           AccommodationCity: 'تهران',
           AccommodationAddress: 'خیابان ولیعصر - خیابان انقلاب - کوچه پشن ',
           AccommodationTelephone: '021-88848414',
+          AccommodationStartTime: null
         },
       ]
     },
